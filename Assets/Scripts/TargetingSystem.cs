@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Targetting : MonoBehaviour
 {
-    public LayerMask layermask;
+    public LayerMask pushableObjects;
     public int numberOfTargetsWithinRange;
-    public int layer;
+    public IList candidateTargets;
 
     // Start is called before the first frame update
     void Start()
@@ -22,16 +22,32 @@ public class Targetting : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if ((pushableObjects.value & (1 << other.transform.gameObject.layer)) > 0)
+        {
+            Debug.Log("Hit with Layermask");
+            candidateTargets.Add(other.gameObject);
+
+            ++numberOfTargetsWithinRange;
+        }
+        else
+        {
+            Debug.Log("Not in Layermask");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Targetable")
-        {
-            m_CandidateTargets.Remove(other.gameObject);
+            if ((pushableObjects.value & (1 << other.transform.gameObject.layer)) > 0)
+            {
+                Debug.Log("Hit with Layermask");
+                candidateTargets.Remove(other.gameObject);
 
-            --numberOfTargetsWithinRange;
-        }
+                --numberOfTargetsWithinRange;
+            }
+            else
+            {
+                Debug.Log("Not in Layermask");
+            }
     }
 }
+
