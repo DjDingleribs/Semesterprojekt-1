@@ -5,31 +5,46 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 16f;
+    public float moveSpeed;
+    public float jumpForce;
     private bool isFacingRight = true;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
+    public KeyCode left;
+    public KeyCode right;
+    public KeyCode jump;
+
+    private Rigidbody2D rb;
+
+    public Transform groundCheck;
+    public LayerMask groundLayer;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKey(left))
+        {
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+        }
+        else if (Input.GetKey(right))
+        {
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
 
 
         if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
         if (Input.GetKeyUp(KeyCode.W) && rb.velocity.y > 0f)
@@ -41,10 +56,6 @@ public class PlayerMovement : MonoBehaviour
         Flip();
     }
 
-    private void FixedUpdate()
-    {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-    }
 
     private bool IsGrounded()
     {
@@ -53,12 +64,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        if (Input.GetKey(left) && isFacingRight || Input.GetKey(right) && !isFacingRight)
         {
             isFacingRight = !isFacingRight;
             Vector3 localscale = transform.localScale;
             localscale.x *= -1f;
             transform.localScale = localscale;
         }
+
     }
 }
