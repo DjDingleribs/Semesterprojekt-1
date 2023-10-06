@@ -6,7 +6,7 @@ public class Targetting : MonoBehaviour
 {
     public LayerMask pushableObjects;
     public int numberOfTargetsWithinRange;
-    public IList candidateTargets;
+    public List<GameObject> m_CandidateTargets;
 
     // Start is called before the first frame update
     void Start()
@@ -25,24 +25,24 @@ public class Targetting : MonoBehaviour
         if ((pushableObjects.value & (1 << other.transform.gameObject.layer)) > 0)
         {
             Debug.Log("Hit with Layermask");
-            candidateTargets.Add(other.gameObject);
-
             ++numberOfTargetsWithinRange;
+
+            m_CandidateTargets.Add(other.gameObject);
+            }
+            else
+            {
+                Debug.Log("Not in Layermask");
+            }
         }
-        else
-        {
-            Debug.Log("Not in Layermask");
-        }
-    }
 
     private void OnTriggerExit2D(Collider2D other)
     {
             if ((pushableObjects.value & (1 << other.transform.gameObject.layer)) > 0)
             {
                 Debug.Log("Hit with Layermask");
-                candidateTargets.Remove(other.gameObject);
-
                 --numberOfTargetsWithinRange;
+
+                m_CandidateTargets.Remove(other.gameObject);
             }
             else
             {
