@@ -880,6 +880,9 @@ MonoBehaviour:
   left: 97
   right: 100
   jump: 119
+  leftController: 340
+  rightController: 340
+  jumpController: 331
   groundCheck: {fileID: 2048225689}
   groundLayer:
     serializedVersion: 2
