@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
+        } 
 
         if (Input.GetKeyUp(KeyCode.W) && rb.velocity.y > 0f)
         {
