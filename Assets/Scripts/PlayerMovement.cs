@@ -13,14 +13,16 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode right;
     public KeyCode jump;
 
-    public KeyCode leftController;
-    public KeyCode rightController;
-    public KeyCode jumpController;
-
     private Rigidbody2D rb;
 
     public Transform groundCheck;
     public LayerMask groundLayer;
+
+    public Transform pushobjCheck;
+    public LayerMask pushobjLayer;
+
+    public Transform playerCheck;
+    public LayerMask playerLayer;
 
 
     // Start is called before the first frame update
@@ -56,17 +58,14 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
-        if (Input.GetKey(leftController))
+        if (Input.GetKeyDown(KeyCode.W) && IsOnPushableObj())
         {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-        else if (Input.GetKey(rightController))
+
+        if (Input.GetKeyDown(KeyCode.W) && IsOnPlayer())
         {
-            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
 
@@ -79,6 +78,16 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
+    private bool IsOnPushableObj()
+    {
+        return Physics2D.OverlapCircle(pushobjCheck.position, 0.2f, pushobjLayer);
+    }
+
+    private bool IsOnPlayer()
+    {
+        return Physics2D.OverlapCircle(playerCheck.position, 0.2f, playerLayer);
+    }
+
     private void Flip()
     {
         if (Input.GetKey(left) && isFacingRight || Input.GetKey(right) && !isFacingRight)
@@ -89,13 +98,6 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = localscale;
         }
 
-        if (Input.GetKey(leftController) && isFacingRight || Input.GetKey(rightController) && !isFacingRight)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localscale = transform.localScale;
-            localscale.x *= -1f;
-            transform.localScale = localscale;
-        }
 
     }
 }

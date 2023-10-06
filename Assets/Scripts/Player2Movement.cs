@@ -18,6 +18,12 @@ public class Player2Movement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    public Transform pushobjCheck;
+    public LayerMask pushobjLayer;
+
+    public Transform playerCheck;
+    public LayerMask playerLayer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,16 +48,25 @@ public class Player2Movement : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.UpArrow) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (Input.GetKeyUp(KeyCode.W) && rb.velocity.y > 0f)
+        if (Input.GetKeyUp(KeyCode.UpArrow) && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
+        if (Input.GetKeyDown(KeyCode.UpArrow) && IsOnPushableObj())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && IsOnPlayer())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
 
         Flip();
     }
@@ -60,6 +75,16 @@ public class Player2Movement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
+    private bool IsOnPushableObj()
+    {
+        return Physics2D.OverlapCircle(pushobjCheck.position, 0.2f, pushobjLayer);
+    }
+
+    private bool IsOnPlayer()
+    {
+        return Physics2D.OverlapCircle(playerCheck.position, 0.2f, playerLayer);
     }
 
     private void Flip()
