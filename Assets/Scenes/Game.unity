@@ -282,6 +282,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d1f77ead6913544c91a54e2cdbabfd2, type: 3}
+--- !u!1 &237088756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 237088757}
+  m_Layer: 8
+  m_Name: Player2Check
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &237088757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237088756}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -10.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1262912701}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &269758166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -360,7 +391,7 @@ GameObject:
   - component: {fileID: 336519703}
   - component: {fileID: 336519702}
   - component: {fileID: 336519699}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,6 +423,10 @@ MonoBehaviour:
   pushobjLayer:
     serializedVersion: 2
     m_Bits: 128
+  player1Check: {fileID: 1541467111}
+  player1Layer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!212 &336519700
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -459,6 +494,7 @@ Transform:
   m_Children:
   - {fileID: 493848360}
   - {fileID: 1764690354}
+  - {fileID: 1541467111}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &336519702
@@ -931,6 +967,10 @@ MonoBehaviour:
   pushobjLayer:
     serializedVersion: 2
     m_Bits: 128
+  player2Check: {fileID: 237088757}
+  player2Layer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!61 &1262912698
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1070,6 +1110,7 @@ Transform:
   m_Children:
   - {fileID: 2048225689}
   - {fileID: 1348791812}
+  - {fileID: 237088757}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1262912702
@@ -1239,6 +1280,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d1f77ead6913544c91a54e2cdbabfd2, type: 3}
+--- !u!1 &1541467110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1541467111}
+  m_Layer: 9
+  m_Name: Player1Check
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1541467111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541467110}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -10.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 336519701}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1764690353
 GameObject:
   m_ObjectHideFlags: 0

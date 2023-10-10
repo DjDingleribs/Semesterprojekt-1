@@ -21,7 +21,7 @@ public class Player2Movement : MonoBehaviour
     public Transform pushobjCheck;
     public LayerMask pushobjLayer;
 
-    public Transform player11Check;
+    public Transform player1Check;
     public LayerMask player1Layer;
 
 
