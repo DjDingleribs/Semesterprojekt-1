@@ -2,13 +2,12 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerPush : MonoBehaviour
+public class PlayerPull : MonoBehaviour
 {
     public LayerMask pushableObjects;
-    public LayerMask Player;
     public float pushForce;
 
-    int pushState = 0;
+    int pullState = 0;
     Vector2 aimDir;
     Vector2 plyrPos;
     Vector2 pushDir;
@@ -17,21 +16,21 @@ public class PlayerPush : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            pushState = 1;
+            pullState = 1;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            pushState = 0;
+            pullState = 0;
         }
 
-        if (pushState == 1)
+        if (pullState == 1)
         {
             plyrPos = transform.position;
             aimDir = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             pushDir = (aimDir - plyrPos).normalized;
 
-            RaycastHit2D hit = Physics2D.Raycast(plyrPos, pushDir, Mathf.Infinity, pushableObjects | Player);
+            RaycastHit2D hit = Physics2D.Raycast(plyrPos, pushDir, Mathf.Infinity, pushableObjects);
 
             if (hit.collider != null)
             {
@@ -41,7 +40,7 @@ public class PlayerPush : MonoBehaviour
                 if (rb != null)
                 {
                     //rb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
-                    rb.velocity = pushDir * pushForce;
+                    rb.velocity = -pushDir * pushForce;
                 }
             }
         }
