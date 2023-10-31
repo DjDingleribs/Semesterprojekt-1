@@ -35,7 +35,7 @@ public class PlayerPush : MonoBehaviour
 
             if (hit.collider != null)
             {
-                print("CollisionHit");
+                //print("CollisionHit");
                 Rigidbody2D rb = hit.collider.GetComponent<Rigidbody2D>();
 
                 if (rb != null)

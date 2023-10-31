@@ -21,9 +21,6 @@ public class PlayerMovement : MonoBehaviour
     public Transform pushobjCheck;
     public LayerMask pushobjLayer;
 
-    public Transform player2Check;
-    public LayerMask player2Layer;
-
 
     // Start is called before the first frame update
     void Start()
@@ -63,11 +60,6 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && IsOnPlayerTwo())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
-
 
 
         Flip();
@@ -82,11 +74,6 @@ public class PlayerMovement : MonoBehaviour
     private bool IsOnPushableObj()
     {
         return Physics2D.OverlapCircle(pushobjCheck.position, 0.2f, pushobjLayer);
-    }
-
-    private bool IsOnPlayerTwo()
-    {
-        return Physics2D.OverlapCircle(player2Check.position, 0.2f, player2Layer);
     }
 
 

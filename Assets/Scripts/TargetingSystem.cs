@@ -24,14 +24,14 @@ public class Targetting : MonoBehaviour
     {
         if ((pushableObjects.value & (1 << other.transform.gameObject.layer)) > 0)
         {
-            Debug.Log("Hit with Layermask");
+            //Debug.Log("Hit with Layermask");
             ++numberOfTargetsWithinRange;
 
             m_CandidateTargets.Add(other.gameObject);
             }
             else
             {
-                Debug.Log("Not in Layermask");
+                //Debug.Log("Not in Layermask");
             }
         }
 
@@ -39,14 +39,14 @@ public class Targetting : MonoBehaviour
     {
             if ((pushableObjects.value & (1 << other.transform.gameObject.layer)) > 0)
             {
-                Debug.Log("Hit with Layermask");
+                //Debug.Log("Hit with Layermask");
                 --numberOfTargetsWithinRange;
 
                 m_CandidateTargets.Remove(other.gameObject);
             }
             else
             {
-                Debug.Log("Not in Layermask");
+                //Debug.Log("Not in Layermask");
             }
     }
 }
