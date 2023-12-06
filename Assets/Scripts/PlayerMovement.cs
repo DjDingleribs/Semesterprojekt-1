@@ -68,11 +68,13 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
+        Debug.Log("Er Grounded");
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
     private bool IsOnPushableObj()
     {
+        Debug.Log("På Pushable");
         return Physics2D.OverlapCircle(pushobjCheck.position, 0.2f, pushobjLayer);
     }
 
