@@ -6,6 +6,14 @@ TagManager:
   tags:
   - Platform
   - DeathTrigger
+  - Checkpoint
+  - Enemy
+  - Goal
+  - Box
+  - BoxGoal
+  - Gate
+  - Pull
+  - Push
   layers:
   - Default
   - TransparentFX
@@ -45,4 +53,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 28996187
     locked: 0
