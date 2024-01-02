@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsOnPushableObj()
     {
-        Debug.Log("PÂ Pushable");
+        Debug.Log("PÅEPushable");
         return Physics2D.OverlapCircle(pushobjCheck.position, 0.2f, pushobjLayer);
     }
 

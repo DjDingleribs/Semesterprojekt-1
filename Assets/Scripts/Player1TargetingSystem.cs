@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +39,7 @@ public class Player1TargettingSystem : MonoBehaviour
     {
         if (numberOfTargetsWithinRange == 0)
         {
-            pushActive.SetSpriteDisabled();
+            //pushActive.SetSpriteDisabled();
         }
 
         else

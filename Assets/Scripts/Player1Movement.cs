@@ -19,6 +19,11 @@ public class Player1Movement : MonoBehaviour
     public ParticleSystem dust;
     public float currentCheckpoint;
     public bool player1GoalAchieved;
+    private bool powerUp;
+    private float dashTimer;
+    private KeyCode lastDirection;
+    private float canDash;
+    public float dashStrength;
 
     public Animator animator;
 
@@ -48,21 +53,33 @@ public class Player1Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A) && isDead == false)
+        if (Input.GetKey(KeyCode.A) && !isDead)
         {
             isRunning = true;
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             animator.SetFloat("Player1Speed", Mathf.Abs(moveSpeed));
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D) && isDead == false)
         {
             isRunning = true;
-            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             animator.SetFloat("Player1Speed", Mathf.Abs(moveSpeed));
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         }
-        else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D) && isDead == false)
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            dashTimer = Time.time;
+            lastDirection = KeyCode.A;
+        }
+
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            dashTimer = Time.time;
+            lastDirection = KeyCode.D;
+        }
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D) && isDead == false)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             animator.SetFloat("Player1Speed", 0);
@@ -93,10 +110,9 @@ public class Player1Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpSound.Play();
         }
-
-        if (Input.GetKeyUp(KeyCode.W) && rb.velocity.y > 0f)
+        else if (Input.GetKeyUp(KeyCode.W) && rb.velocity.y > 0f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
         if (Input.GetKeyDown(KeyCode.W) && IsOnPushableObj() && isDead == false)
@@ -113,7 +129,24 @@ public class Player1Movement : MonoBehaviour
             animator.SetBool("IsPlayer1Pushing", false);
         }
 
-
+        if (powerUp && Input.GetKeyDown(KeyCode.A) && Time.time < dashTimer + 0.2f && lastDirection == KeyCode.A && Time.time > canDash)
+        {
+            rb.gravityScale = 0f;
+            Debug.Log("Kage");
+            rb.velocity = new Vector2(-300, rb.velocity.y); //rb.AddForce(new Vector2(-dashStrength, rb.velocity.y), ForceMode2D.Impulse);
+            canDash = Time.time + 1;
+        }
+        else if (powerUp && Input.GetKeyDown(KeyCode.D) && Time.time < dashTimer + 0.2f && lastDirection == KeyCode.D && Time.time > canDash)
+        {
+            rb.gravityScale = 0f;
+            Debug.Log("Gulerod");
+            rb.velocity = new Vector2(300, rb.velocity.y); //rb.AddForce(new Vector2(-dashStrength, rb.velocity.y), ForceMode2D.Impulse);
+            canDash = Time.time + 1;
+        }
+        else
+        {
+            rb.gravityScale = 4f;
+        }
 
         Flip();
     }
@@ -188,8 +221,7 @@ public class Player1Movement : MonoBehaviour
             isDead = true;
             deathSound.Play();
         }
-
-        }
+    }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
@@ -210,6 +242,12 @@ public class Player1Movement : MonoBehaviour
         {
             player1GoalAchieved = true;
             Debug.Log("Mål!");
+        }
+        if (collision.gameObject.CompareTag("Powerup"))
+        {
+            powerUp = true;
+            Destroy(collision.gameObject);
+            Debug.Log("rt");
         }
     }
 
